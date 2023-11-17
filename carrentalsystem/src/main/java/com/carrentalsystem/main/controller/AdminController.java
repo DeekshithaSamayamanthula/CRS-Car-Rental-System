@@ -20,8 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.carrentalsystem.main.dto.AdminDto;
 import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Admin;
+import com.carrentalsystem.main.model.Car;
+import com.carrentalsystem.main.model.Customer;
+import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.model.User;
 import com.carrentalsystem.main.service.AdminService;
+import com.carrentalsystem.main.service.CarService;
+import com.carrentalsystem.main.service.CustomerService;
+import com.carrentalsystem.main.service.HostService;
 import com.carrentalsystem.main.service.UserService;
 
 @RestController
@@ -29,6 +35,12 @@ import com.carrentalsystem.main.service.UserService;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private HostService hostService;
+	@Autowired
+	private CarService carService;
+	@Autowired
+	private CustomerService customerService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -99,4 +111,45 @@ public class AdminController {
 		oldAdmin = adminService.postAdmin(oldAdmin); 
 		return ResponseEntity.ok().body(oldAdmin);
 	}
+	//localhost:9191/admin/getall/hosts
+		@GetMapping("/getall/hosts")// to get all hosts(admin auth req)
+		public List<Host> getAllHosts(@RequestParam(value="page",required = false, defaultValue = "0") Integer page,
+								   @RequestParam(value="size", required = false, defaultValue = "10000000") Integer size) { // v1 v2 v3 v4 v5
+																											// : size & page
+
+			Pageable pageable = PageRequest.of(page, size); // null null
+			return hostService.getAll(pageable);
+		}
+		//localhost:9191/admin/getall/carsbyhost/2
+		@GetMapping("/getall/carsbyhost/{hid}") //all cars posted by one host(admin auth req)
+		public ResponseEntity<?> getcarByHost(@PathVariable("hid") int hid) { 
+			
+			try {
+				Host host = hostService.getOne(hid);
+				List<Car> list= carService.getcarByHost(hid);
+				return ResponseEntity.ok().body(list);
+			} catch (InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+
+			}
+		}
+//		localhost:9191/admin/getall/customers
+		@GetMapping("/getall/customers")// to get all customers
+		public List<Customer> getAllcustomers(@RequestParam(value="page",required = false, defaultValue = "0") Integer page,
+								   @RequestParam(value="size", required = false, defaultValue = "10000000") Integer size) { // v1 v2 v3 v4 v5
+																											// : size & page
+
+			Pageable pageable = PageRequest.of(page, size); // null null
+			return customerService.getAll(pageable);
+		}
+//		localhost:9191/admin/deletehost/5
+		@DeleteMapping("/deletehost/{hid}")// delete host by host id(only if host doesn't have any cars)(admin auth req)
+		public ResponseEntity<?> deleteHost(@PathVariable("hid") int hid) throws InvalidIdException {
+			
+		
+			Host host = hostService.getOne(hid);
+			
+			hostService.deleteHost(host);
+			return ResponseEntity.ok().body("Host deleted successfully");
+		}
 }
