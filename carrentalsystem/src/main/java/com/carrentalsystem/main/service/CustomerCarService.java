@@ -52,6 +52,18 @@ public class CustomerCarService {
 	public List<CustomerCar> getMyBookings(int cid) {
 		return customerCarRepository.getMyBookings(cid);
 	}
+
+	public List<CustomerCar> getcustomers(int carid) {
+		// TODO Auto-generated method stub
+		return  customerCarRepository.getBycarId(carid);
+	}
+
+
+
+//	public List<CustomerCar> getcarbookingsByHostId(int hid) {
+//		// TODO Auto-generated method stub
+//		return  customerCarRepository.getByhostId(hid);
+//	}
 	    
 
 }

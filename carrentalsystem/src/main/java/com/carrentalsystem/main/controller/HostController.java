@@ -22,9 +22,11 @@ import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Admin;
 import com.carrentalsystem.main.model.Car;
 import com.carrentalsystem.main.model.Customer;
+import com.carrentalsystem.main.model.CustomerCar;
 import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.model.User;
 import com.carrentalsystem.main.service.CarService;
+import com.carrentalsystem.main.service.CustomerCarService;
 import com.carrentalsystem.main.service.HostService;
 import com.carrentalsystem.main.service.UserService;
 
@@ -35,6 +37,8 @@ public class HostController {
 	private HostService hostService;
 	@Autowired
 	private CarService carService;
+	@Autowired
+	private CustomerCarService customercarService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -119,4 +123,18 @@ public class HostController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+//	@GetMapping("/getall/{hid}") //all cars posted by one host
+//	public ResponseEntity<?> getcarByHost(@PathVariable("hid") int hid) { 
+//		
+//		try {
+//			Host host = hostService.getOne(hid);
+//			List<Car> list= carService.getcarByHost(hid);
+//			List<CustomerCar> list1= customercarService.getcarbookingsByHostId(hid);
+//			return ResponseEntity.ok().body(list1);
+//		} catch (InvalidIdException e) {
+//			return ResponseEntity.badRequest().body(e.getMessage());
+//
+//		}
+//	}
 }

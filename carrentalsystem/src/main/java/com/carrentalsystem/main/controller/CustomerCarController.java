@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carrentalsystem.main.dto.CustomerCarDto;
@@ -80,6 +83,19 @@ public class CustomerCarController {
 		try {
 			Customer customer = customerService.getCustomer(cid);
 			List<CustomerCar> list = customercarService.getMyBookings(cid);
+			return ResponseEntity.ok().body(list);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+//	localhost:9191/customers/22
+	@GetMapping("/customers/{carid}") // get your bookings
+	public ResponseEntity<?> getcustomers(@PathVariable("carid") int carid) {
+
+		try {
+			Car car = carService.getById(carid);
+			List<CustomerCar> list = customercarService.getcustomers(carid);
 			return ResponseEntity.ok().body(list);
 
 		} catch (InvalidIdException e) {

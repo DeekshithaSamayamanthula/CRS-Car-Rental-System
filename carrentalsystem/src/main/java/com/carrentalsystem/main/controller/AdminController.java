@@ -22,10 +22,12 @@ import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Admin;
 import com.carrentalsystem.main.model.Car;
 import com.carrentalsystem.main.model.Customer;
+import com.carrentalsystem.main.model.CustomerCar;
 import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.model.User;
 import com.carrentalsystem.main.service.AdminService;
 import com.carrentalsystem.main.service.CarService;
+import com.carrentalsystem.main.service.CustomerCarService;
 import com.carrentalsystem.main.service.CustomerService;
 import com.carrentalsystem.main.service.HostService;
 import com.carrentalsystem.main.service.UserService;
@@ -41,6 +43,8 @@ public class AdminController {
 	private CarService carService;
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private CustomerCarService customerCarService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -151,5 +155,18 @@ public class AdminController {
 			
 			hostService.deleteHost(host);
 			return ResponseEntity.ok().body("Host deleted successfully");
+		}
+//		localhost:9191/admin/customers/22
+		@GetMapping("/customers/{carid}") // get customer bookings by customer id(admin auth req)
+		public ResponseEntity<?> getcustomers(@PathVariable("carid") int carid) {
+
+			try {
+				Car car = carService.getById(carid);
+				List<CustomerCar> list = customerCarService.getcustomers(carid);
+				return ResponseEntity.ok().body(list);
+
+			} catch (InvalidIdException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
 		}
 }
