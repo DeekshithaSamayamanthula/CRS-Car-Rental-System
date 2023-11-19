@@ -50,6 +50,17 @@ public class CustomerService {
 
 
 
+	public Customer getCustomer(int cid) throws InvalidIdException {
+		// TODO Auto-generated method stub
+		Optional<Customer> optional = customerRepository.findById(cid);
+		if (!optional.isPresent()) {
+			throw new InvalidIdException("Customer ID invalid");
+		}
+		return optional.get();
+	}
+
+
+
 	
 
 }
