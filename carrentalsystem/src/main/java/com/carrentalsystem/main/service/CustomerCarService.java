@@ -20,13 +20,15 @@ public class CustomerCarService {
 	private CustomerCarRepository customerCarRepository;
 	@Autowired
 	private CarRepository carRepository;
+	
 
 	public double price(int carid, LocalDate fromDate, LocalDate toDate) throws InvalidIdException {
 		Optional<Car> optional = carRepository.findById(carid);
 	    if (!optional.isPresent())
 	        throw new InvalidIdException("Car does not exist");
 
-	    double price = 0;
+	    double price=optional.get().getPrice();
+	    System.err.println("getting price in service:"+price);
 	    long noofdays=ChronoUnit.DAYS.between(fromDate, toDate);
 	    if (noofdays <= 1) {
 	        return price;
