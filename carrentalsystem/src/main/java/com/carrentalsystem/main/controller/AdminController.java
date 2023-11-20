@@ -157,14 +157,14 @@ public class AdminController {
 			return ResponseEntity.ok().body("Host deleted successfully");
 		}
 //		localhost:9191/admin/customers/22
-		@GetMapping("/customers/{carid}") // get customer bookings by customer id(admin auth req)
+		@GetMapping("/customers/{carid}") //to get customer booked by car id(admin auth req)
 		public ResponseEntity<?> getcustomers(@PathVariable("carid") int carid) {
 
 			try {
 				Car car = carService.getById(carid);
 				List<CustomerCar> list = customerCarService.getcustomers(carid);
 				return ResponseEntity.ok().body(list);
-
+ 
 			} catch (InvalidIdException e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
 			}

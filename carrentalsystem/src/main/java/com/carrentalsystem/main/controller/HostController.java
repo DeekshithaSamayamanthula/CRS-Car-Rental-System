@@ -123,18 +123,18 @@ public class HostController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-//	@GetMapping("/getall/{hid}") //all cars posted by one host
-//	public ResponseEntity<?> getcarByHost(@PathVariable("hid") int hid) { 
-//		
-//		try {
-//			Host host = hostService.getOne(hid);
-//			List<Car> list= carService.getcarByHost(hid);
-//			List<CustomerCar> list1= customercarService.getcarbookingsByHostId(hid);
-//			return ResponseEntity.ok().body(list1);
-//		} catch (InvalidIdException e) {
-//			return ResponseEntity.badRequest().body(e.getMessage());
-//
-//		}
-//	}
+//	localhost:9191/customers/22
+	@GetMapping("/customers/{hid}/{carid}") // to get booked customers by car id
+	public ResponseEntity<?> getcustomers(@PathVariable("hid") int hid,@PathVariable("carid") int carid) {
+
+		try {
+			Host host = hostService.getOne(hid);
+			Car car = carService.getById(carid);
+			List<CustomerCar> list = customercarService.getcustomers(carid);
+			return ResponseEntity.ok().body(list);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

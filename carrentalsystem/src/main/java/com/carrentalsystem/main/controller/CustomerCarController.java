@@ -90,7 +90,7 @@ public class CustomerCarController {
 		}
 	}
 //	localhost:9191/customers/22
-	@GetMapping("/customers/{carid}") // get your bookings
+	@GetMapping("/customers/{carid}") // get booked customers by carid 
 	public ResponseEntity<?> getcustomers(@PathVariable("carid") int carid) {
 
 		try {
