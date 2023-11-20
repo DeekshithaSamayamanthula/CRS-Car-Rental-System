@@ -14,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.carrentalsystem.main.enums.Role;
+
 @Entity
 public class User implements UserDetails {
 	@Id
@@ -22,13 +24,14 @@ public class User implements UserDetails {
 	private String username;
 	
 	private String password;
+	@Enumerated(EnumType.STRING)	
+	private Role role;
 	
-	private String role;
-	
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	public int getUserId() {
@@ -52,8 +55,8 @@ public class User implements UserDetails {
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		SimpleGrantedAuthority sga = new SimpleGrantedAuthority(role);
-		Collection<GrantedAuthority> list =new ArrayList<>();
+		SimpleGrantedAuthority sga = new SimpleGrantedAuthority(role.name());
+		Collection<GrantedAuthority> list = new ArrayList<>();
 		list.add(sga);
 		return list;
 	}
@@ -82,5 +85,6 @@ public class User implements UserDetails {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password
 				+ ", role=" + role + "]";
 	}
+	
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carrentalsystem.main.dto.AdminDto;
+import com.carrentalsystem.main.enums.Role;
 import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Admin;
 import com.carrentalsystem.main.model.Car;
@@ -57,7 +58,7 @@ public class AdminController {
 		String password = user.getPassword();
 		String encodedpassword = passwordEncoder.encode(password);
 		user.setPassword(encodedpassword);
-		user.setRole("Admin");
+		user.setRole(Role.Admin);
 		user = userService.insert(user);
 		admin.setUser(user);
 		admin = adminService.postAdmin(admin);
