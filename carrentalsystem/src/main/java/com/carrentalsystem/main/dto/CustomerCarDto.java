@@ -35,7 +35,7 @@ public class CustomerCarDto {
 		this.toDate = toDate;
 	}
 	public double getPrice() {
-		System.err.println("getting price0"+getPrice());
+		
 		return price;
 	}
 	public void setPrice(double price) {

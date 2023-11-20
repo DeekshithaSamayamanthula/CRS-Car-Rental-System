@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
+ 
 
 @Entity
 public class Car {
@@ -22,13 +22,13 @@ public class Car {
 	private int seating;
 	private String insurance;
 	
-	private String status;
-public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+// 	private String status;
+// public String getStatus() {
+// 		return status;
+// 	}
+// 	public void setStatus(String status) {
+// 		this.status = status;
+// 	}
 
 @ManyToOne
 private Host host;
@@ -78,7 +78,7 @@ public void setHost(Host host) {
 @Override
 public String toString() {
 	return "Car [carId=" + carId + ", carModel=" + carModel + ", price=" + price + ", fuelType=" + fuelType
-			+ ", seating=" + seating + ", insurance=" + insurance + ", status=" + status + ", host=" + host + "]";
+			+ ", seating=" + seating + ", insurance=" + insurance + ", host=" + host + "]";
 }
 
 }

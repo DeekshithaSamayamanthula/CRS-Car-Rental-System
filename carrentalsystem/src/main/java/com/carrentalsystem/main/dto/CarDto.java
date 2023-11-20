@@ -9,13 +9,13 @@ public class CarDto {
 	private int seating;
 	private String insurance;
 	
-	private String status;
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	// private String status;
+	// public String getStatus() {
+	// 	return status;
+	// }
+	// public void setStatus(String status) {
+	// 	this.status = status;
+	// }
 	public String getCarModel() {
 		return carModel;
 	}

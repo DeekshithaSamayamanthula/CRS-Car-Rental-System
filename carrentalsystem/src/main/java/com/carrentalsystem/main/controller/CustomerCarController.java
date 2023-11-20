@@ -13,16 +13,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carrentalsystem.main.dto.CustomerCarDto;
 import com.carrentalsystem.main.dto.CustomerDto;
+import com.carrentalsystem.main.dto.HostDto;
 import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Car;
 import com.carrentalsystem.main.model.Customer;
 import com.carrentalsystem.main.model.CustomerCar;
+import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.service.CarService;
 import com.carrentalsystem.main.service.CustomerCarService;
 import com.carrentalsystem.main.service.CustomerService;
@@ -36,6 +39,7 @@ public class CustomerCarController {
 	@Autowired
 	private CarService carService;
 	
+	
 	@PostMapping("/bookcar/{cid}/{carid}")
 	public ResponseEntity<?> bookcar(@PathVariable("cid") int cid, @PathVariable("carid") int carid,
 			@RequestBody List<CustomerCarDto> custCarDtoList) {
@@ -45,7 +49,7 @@ public class CustomerCarController {
 			Car car = carService.getById(carid);
 //			var status=car.getStatus();
 				
-			if(car.getStatus() != "booked") {
+		//	if(car.getStatus() != "booked") {
 				
 			List<CustomerCar> bookedCars = new ArrayList<>();
 			double totalPrice = 0;
@@ -66,9 +70,9 @@ public class CustomerCarController {
 			
 			
 				bookedCars.add(customercarService.insert(customercar));
-				customercar.setStatus("booked");
+				// customercar.setStatus("booked");
 				
-				car.setStatus("booked");
+				// car.setStatus("booked");
 				
 			}
 
@@ -77,11 +81,11 @@ public class CustomerCarController {
 			response.put("totalPrice", totalPrice);
 
 			return ResponseEntity.ok().body(response);
-		}
-		else {
-			return ResponseEntity.badRequest().body("car not available");
-		}
-		} catch (InvalidIdException e) {
+//		} 
+		// else {
+		// 	return ResponseEntity.badRequest().body("car not available");
+		// }  
+		} catch (InvalidIdException e) { 
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
@@ -113,4 +117,26 @@ public class CustomerCarController {
 		}
 	}
 	
+//	localhost:9191/update/bookingdetails/96
+	@PutMapping("/update/bookingdetails/{bid}")// to update booking details by booking id
+	public ResponseEntity<?> updatebookingdetails(@PathVariable("bid") int bid,@RequestBody CustomerCarDto
+			customercarDto){
+		try {
+			CustomerCar customercar = customercarService.getById(bid);
+			if(customercarDto.getSource()!=null)
+				customercar.setSource(customercarDto.getSource());
+			if(customercarDto.getDestination()!=null)
+				customercar.setDestination(customercarDto.getDestination());
+			if(customercarDto.getFromDate()!=null)
+				customercar.setFromDate(customercarDto.getFromDate());
+			if(customercarDto.getToDate()!=null)
+				customercar.setToDate(customercarDto.getToDate());
+			if(customercarDto.getPrice()!=0)
+				customercar.setPrice(customercarDto.getPrice());
+			customercar= customercarService.updatebookingdetails(customercar);
+			return ResponseEntity.ok().body(customercar);	
+		}catch(InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

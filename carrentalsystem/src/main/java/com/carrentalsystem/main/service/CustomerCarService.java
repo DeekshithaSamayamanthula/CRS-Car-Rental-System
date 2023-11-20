@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Car;
 import com.carrentalsystem.main.model.CustomerCar;
+import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.repository.CarRepository;
 import com.carrentalsystem.main.repository.CustomerCarRepository;
 
@@ -33,14 +34,14 @@ public class CustomerCarService {
 	    if (noofdays <= 1) {
 	        return price;
 	    } else if (noofdays ==2 ) {
-	        return price * 1.10;
+	        return price * 1.2;
 	    }
 	    else if (noofdays >= 3 && noofdays <=4) {
-	        return price * 1.15;
+	        return price * 1.4;
 	    }else if (noofdays >= 5 && noofdays <=10) {
-	        return price * 1.30;
+	        return price * 1.60;
 	    }else if (noofdays >10) {
-	        return price * 1.25;
+	        return price * 1.5;
 	    }
 
 	    // Default case, though it should never reach here if age is handled properly
@@ -58,6 +59,19 @@ public class CustomerCarService {
 	public List<CustomerCar> getcustomers(int carid) {
 		// TODO Auto-generated method stub
 		return  customerCarRepository.getBycarId(carid);
+	}
+
+	public CustomerCar getById(int bid) throws InvalidIdException {
+		
+		Optional<CustomerCar> optional = customerCarRepository.findById(bid);
+		if(!optional.isPresent())
+			throw new InvalidIdException("booking id Invalid");
+		return optional.get();
+	}
+
+	public CustomerCar updatebookingdetails(CustomerCar customercar) {
+		// TODO Auto-generated method stub
+		return customerCarRepository.save(customercar);
 	}
 
 

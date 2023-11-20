@@ -21,14 +21,14 @@ public class CustomerCar {
 	private LocalDate fromDate;
 	private LocalDate toDate;
 	private double price;
-	private String status;
-public String getStatus() {
-		return status;
-	}
+// 	private String status;
+// public String getStatus() {
+// 		return status;
+// 	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+// 	public void setStatus(String status) {
+// 		this.status = status;
+// 	}
 
 @OneToOne
 private Customer customer;
@@ -101,7 +101,7 @@ public void setPrice(double price) {
 @Override
 public String toString() {
 	return "CustomerCar [id=" + id + ", source=" + source + ", destination=" + destination + ", fromDate=" + fromDate
-			+ ", toDate=" + toDate + ", price=" + price + ", status=" + status + ", customer=" + customer + ", car="
+			+ ", toDate=" + toDate + ", price=" + price + ", customer=" + customer + ", car="
 			+ car + "]";
 }
 
