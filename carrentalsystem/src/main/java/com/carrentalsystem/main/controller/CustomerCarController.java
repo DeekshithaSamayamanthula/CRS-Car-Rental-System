@@ -43,6 +43,10 @@ public class CustomerCarController {
 
 			Customer customer = customerService.getCustomer(cid);
 			Car car = carService.getById(carid);
+//			var status=car.getStatus();
+				
+			if(car.getStatus() != "booked") {
+				
 			List<CustomerCar> bookedCars = new ArrayList<>();
 			double totalPrice = 0;
 			for (CustomerCarDto custCarDto : custCarDtoList) {
@@ -54,14 +58,17 @@ public class CustomerCarController {
 				customercar.setFromDate(custCarDto.getFromDate());
 			
 				customercar.setToDate(custCarDto.getToDate());
-				System.err.println("setting price");
+				
 				customercar
 						.setPrice(customercarService.price(carid, custCarDto.getFromDate(), custCarDto.getToDate()));
 				
 				totalPrice = totalPrice + (customercar.getPrice());
-				System.err.println("getting price1:"+totalPrice);
+			
 			
 				bookedCars.add(customercarService.insert(customercar));
+				customercar.setStatus("booked");
+				
+				car.setStatus("booked");
 				
 			}
 
@@ -70,7 +77,10 @@ public class CustomerCarController {
 			response.put("totalPrice", totalPrice);
 
 			return ResponseEntity.ok().body(response);
-
+		}
+		else {
+			return ResponseEntity.badRequest().body("car not available");
+		}
 		} catch (InvalidIdException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

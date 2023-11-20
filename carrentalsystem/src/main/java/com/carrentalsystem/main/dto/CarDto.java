@@ -1,11 +1,21 @@
 package com.carrentalsystem.main.dto;
 
+import javax.persistence.Column;
+
 public class CarDto {
 	private String carModel;
 	private double price;
 	private String fuelType;
 	private int seating;
 	private String insurance;
+	
+	private String status;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getCarModel() {
 		return carModel;
 	}

@@ -2,6 +2,7 @@ package com.carrentalsystem.main.model;
 
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,14 @@ public class Car {
 	private int seating;
 	private String insurance;
 	
+	private String status;
+public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 @ManyToOne
 private Host host;
 public int getCarId() {
@@ -69,7 +78,7 @@ public void setHost(Host host) {
 @Override
 public String toString() {
 	return "Car [carId=" + carId + ", carModel=" + carModel + ", price=" + price + ", fuelType=" + fuelType
-			+ ", seating=" + seating + ", insurance=" + insurance + ", host=" + host + "]";
+			+ ", seating=" + seating + ", insurance=" + insurance + ", status=" + status + ", host=" + host + "]";
 }
 
 }
