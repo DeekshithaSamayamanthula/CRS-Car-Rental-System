@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Car;
+import com.carrentalsystem.main.model.CustomerCar;
 import com.carrentalsystem.main.repository.CarRepository;
+import com.carrentalsystem.main.repository.CustomerCarRepository;
 
 @Service
 public class CarService {
 @Autowired
 private CarRepository carRepository;
+@Autowired
+private CustomerCarRepository customerCarRepository;
 	public Car insert(Car car) {
 		return carRepository.save(car);
 	}
@@ -55,6 +59,9 @@ private CarRepository carRepository;
 			throw new InvalidIdException("Car ID Invalid");
 		}
 		return optional.get();
+	}
+	public List<CustomerCar> getBookingsByHostId(int hostId) {
+		 return customerCarRepository.findByCar_Host_Id(hostId);
 	}
 
 

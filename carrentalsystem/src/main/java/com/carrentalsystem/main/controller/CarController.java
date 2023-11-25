@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import com.carrentalsystem.main.dto.CustomerDto;
 import com.carrentalsystem.main.exception.InvalidIdException;
 import com.carrentalsystem.main.model.Car;
 import com.carrentalsystem.main.model.Customer;
+import com.carrentalsystem.main.model.CustomerCar;
 import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.service.CarService;
 import com.carrentalsystem.main.service.HostService;
@@ -110,5 +112,10 @@ public class CarController {
 
 		}
 	}
-	
+//	localhost:9191/car/bookings/67
+	@GetMapping("/bookings/{hostId}")// get cust bookings by host id
+    public ResponseEntity<List<CustomerCar>> getBookingsByHostId(@PathVariable int hostId) {
+        List<CustomerCar> bookings = carService.getBookingsByHostId(hostId);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
 }

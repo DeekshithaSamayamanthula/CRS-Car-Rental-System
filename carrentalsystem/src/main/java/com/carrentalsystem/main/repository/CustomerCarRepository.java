@@ -17,4 +17,6 @@ public interface CustomerCarRepository extends JpaRepository<CustomerCar, Intege
 	@Query("select cc from CustomerCar cc where cc.car.id =?1")
 	List<CustomerCar> getByhostId(int hid);
 
+	List<CustomerCar> findByCar_Host_Id(int hostId);
+
 }
