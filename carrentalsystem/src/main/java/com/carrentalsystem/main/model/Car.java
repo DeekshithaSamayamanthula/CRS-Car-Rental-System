@@ -21,6 +21,7 @@ public class Car {
 	private String fuelType;
 	private int seating;
 	private String insurance;
+	private String source;
 	
 // 	private String status;
 // public String getStatus() {
@@ -30,6 +31,12 @@ public class Car {
 // 		this.status = status;
 // 	}
 
+public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
 @ManyToOne
 private Host host;
 public int getCarId() {
@@ -78,7 +85,7 @@ public void setHost(Host host) {
 @Override
 public String toString() {
 	return "Car [carId=" + carId + ", carModel=" + carModel + ", price=" + price + ", fuelType=" + fuelType
-			+ ", seating=" + seating + ", insurance=" + insurance + ", host=" + host + "]";
+			+ ", seating=" + seating + ", insurance=" + insurance + ", source=" + source + ", host=" + host + "]";
 }
 
 }

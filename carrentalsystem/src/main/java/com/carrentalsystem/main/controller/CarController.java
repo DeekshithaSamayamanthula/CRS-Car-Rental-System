@@ -93,6 +93,8 @@ public class CarController {
 				car.setSeating(carDto.getSeating());
 			if(carDto.getInsurance()!=null)
 				car.setInsurance(carDto.getInsurance());
+			if(carDto.getSource()!=null)
+				car.setSource(carDto.getSource());
 			car=carService.postCar(car);
 			return ResponseEntity.ok().body(car);	
 		}catch(InvalidIdException e) {
@@ -117,5 +119,11 @@ public class CarController {
     public ResponseEntity<List<CustomerCar>> getBookingsByHostId(@PathVariable int hostId) {
         List<CustomerCar> bookings = carService.getBookingsByHostId(hostId);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+//	localhost:9191/car/getcars/bysource/hyderabad
+	@GetMapping("getcars/bysource/{source}")//get cars by source
+    public ResponseEntity<List<Car>> getCarsBySource(@PathVariable String source) {
+        List<Car> cars = carService.getCarsBySource(source);
+        return ResponseEntity.ok(cars);
     }
 }

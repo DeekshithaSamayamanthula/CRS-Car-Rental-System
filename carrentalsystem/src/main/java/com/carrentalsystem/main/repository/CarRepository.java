@@ -15,6 +15,8 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 
 	List<Car> findByHostId(int hid);
 
+	List<Car> findBySource(String source);
+
 		
 
 }

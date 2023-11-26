@@ -8,7 +8,13 @@ public class CarDto {
 	private String fuelType;
 	private int seating;
 	private String insurance;
-	
+	private String source;
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
 	// private String status;
 	// public String getStatus() {
 	// 	return status;

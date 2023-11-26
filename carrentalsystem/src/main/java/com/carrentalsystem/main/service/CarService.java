@@ -63,6 +63,9 @@ private CustomerCarRepository customerCarRepository;
 	public List<CustomerCar> getBookingsByHostId(int hostId) {
 		 return customerCarRepository.findByCar_Host_Id(hostId);
 	}
+	public List<Car> getCarsBySource(String source) {
+		return carRepository.findBySource(source);
+	}
 
 
 
