@@ -2,6 +2,7 @@ package com.carrentalsystem.main.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -66,6 +67,17 @@ private CustomerCarRepository customerCarRepository;
 	public List<Car> getCarsBySource(String source) {
 		return carRepository.findBySource(source);
 	}
+	public List<Car> getAvailableCars(String source) {
+		List<CustomerCar> bookedCars = customerCarRepository.findBySource(source);
+        List<Integer> bookedCarIds = bookedCars.stream().map(customerCar -> (Integer) customerCar.getCar().getCarId()).collect(Collectors.toList());
+        if (bookedCarIds.isEmpty()) {
+            // If no cars are booked, return all cars from the specified source
+            return carRepository.findBySource(source);
+        } else {
+            // If cars are booked, return available cars from the specified source
+            return carRepository.findBySourceAndCarIdNotIn(source, bookedCarIds);
+        }
+    }
 
 
 

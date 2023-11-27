@@ -126,4 +126,10 @@ public class CarController {
         List<Car> cars = carService.getCarsBySource(source);
         return ResponseEntity.ok(cars);
     }
+	//localhost:9191/car/get/availablecars/hyderabad
+	@GetMapping("/get/availablecars/{source}")
+    public ResponseEntity<List<Car>> getAvailableCars(@PathVariable String source) {
+        List<Car> availableCars = carService.getAvailableCars(source);
+        return ResponseEntity.ok(availableCars);
+    }
 }

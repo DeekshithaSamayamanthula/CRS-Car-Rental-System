@@ -17,6 +17,10 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 
 	List<Car> findBySource(String source);
 
+//	List<Car> findBySourceAndIdNotIn(String source, List<Long> bookedCarIds);
+
+	List<Car> findBySourceAndCarIdNotIn(String source, List<Integer> bookedCarIds);
+
 		
 
 }

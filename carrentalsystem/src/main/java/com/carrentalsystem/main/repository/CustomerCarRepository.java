@@ -19,4 +19,6 @@ public interface CustomerCarRepository extends JpaRepository<CustomerCar, Intege
 
 	List<CustomerCar> findByCar_Host_Id(int hostId);
 
+	List<CustomerCar> findBySource(String source);
+
 }
