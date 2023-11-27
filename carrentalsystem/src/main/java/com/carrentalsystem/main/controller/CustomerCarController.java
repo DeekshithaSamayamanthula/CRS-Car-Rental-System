@@ -139,4 +139,18 @@ public class CustomerCarController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+//	localhost:9191/customers/22/2023-11-01
+	@GetMapping("/customers/{carid}/{date}") // get booked customers by carid ,date
+	public ResponseEntity<?> getcustomers(@PathVariable("carid") int carid, 
+			@PathVariable("date") LocalDate date) {
+
+		try {
+			Car car = carService.getById(carid);
+			List<CustomerCar> list = customercarService.getcustomers(carid,date);
+			return ResponseEntity.ok().body(list);
+
+		} catch (InvalidIdException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

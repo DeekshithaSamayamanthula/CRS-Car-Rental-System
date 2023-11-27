@@ -74,6 +74,11 @@ public class CustomerCarService {
 		return customerCarRepository.save(customercar);
 	}
 
+	public List<CustomerCar> getcustomers(int carid, LocalDate date) {
+		// TODO Auto-generated method stub
+		return customerCarRepository.getBycarIdandDate(carid,date);
+	}
+
 
 
 //	public List<CustomerCar> getcarbookingsByHostId(int hid) {

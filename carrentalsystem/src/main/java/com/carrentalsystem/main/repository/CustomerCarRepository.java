@@ -1,5 +1,6 @@
 package com.carrentalsystem.main.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +21,11 @@ public interface CustomerCarRepository extends JpaRepository<CustomerCar, Intege
 	List<CustomerCar> findByCar_Host_Id(int hostId);
 
 	List<CustomerCar> findBySource(String source);
+
+//	@Query("select cc from CustomerCar cc where cc.car.id =?1 and cc.car.date=?1")
+//	List<CustomerCar> getBycarIdandDate(int carid, LocalDate date);
+
+	@Query("SELECT cc FROM CustomerCar cc WHERE cc.car.id = ?1 AND cc.fromDate <= ?2")
+	List<CustomerCar> getBycarIdandDate(int carId, LocalDate fromDate);
 
 }
