@@ -28,10 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		 http
 		 .authorizeRequests()
-		 .antMatchers("/admin/signup","/host/signup","/customer/signup","/admin/getone/{id}","/admin/getall",
-				 "/admin/delete/{id}","/admin/update/{id}","/add/{cid}/{carid}","/customer/update/{cid}",
-				 "/host/update/{hid}","/host/delete/{id}","car/delete/{hid}/{carid}").permitAll()
-		 .antMatchers(HttpMethod.GET,"/user/login").authenticated()
+		 
+		 .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
+		 .antMatchers("/car/getall").permitAll()
+		 .antMatchers("/car/getcars/bysource/{source}").permitAll()
+		 .antMatchers("/car/get/availablecars/{source}").permitAll()
+		 .antMatchers("/bookcar/{cid}/{carid}").permitAll()
+		 .antMatchers("/customer/bookings/{cid}").permitAll()
 		 .anyRequest().authenticated()
 		 .and().httpBasic()
 		 .and()

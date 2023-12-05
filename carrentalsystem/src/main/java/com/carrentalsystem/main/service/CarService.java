@@ -70,6 +70,7 @@ private CustomerCarRepository customerCarRepository;
 	public List<Car> getAvailableCars(String source) {
 		List<CustomerCar> bookedCars = customerCarRepository.findBySource(source);
         List<Integer> bookedCarIds = bookedCars.stream().map(customerCar -> (Integer) customerCar.getCar().getCarId()).collect(Collectors.toList());
+        System.err.println("available api service"+  bookedCarIds);
         if (bookedCarIds.isEmpty()) {
             // If no cars are booked, return all cars from the specified source
             return carRepository.findBySource(source);

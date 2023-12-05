@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ import com.carrentalsystem.main.service.HostService;
 
 @RestController
 @RequestMapping("/car")
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class CarController {
 	@Autowired
 	private HostService hostService;
@@ -75,6 +77,7 @@ public class CarController {
 	public List<Car> getAllCar(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(value = "size", required = false, defaultValue = "10000000") Integer size) {
 		Pageable pageable = PageRequest.of(page, size); // null null
+		
 		return carService.getAll(pageable);
 	}
 	//localhost:9191/car/update/5/6
@@ -124,12 +127,14 @@ public class CarController {
 	@GetMapping("getcars/bysource/{source}")//get cars by source
     public ResponseEntity<List<Car>> getCarsBySource(@PathVariable String source) {
         List<Car> cars = carService.getCarsBySource(source);
+        System.err.println("source api");
         return ResponseEntity.ok(cars);
     }
 	//localhost:9191/car/get/availablecars/hyderabad
 	@GetMapping("/get/availablecars/{source}")
     public ResponseEntity<List<Car>> getAvailableCars(@PathVariable String source) {
         List<Car> availableCars = carService.getAvailableCars(source);
+        System.err.println("available api");
         return ResponseEntity.ok(availableCars);
     }
 }

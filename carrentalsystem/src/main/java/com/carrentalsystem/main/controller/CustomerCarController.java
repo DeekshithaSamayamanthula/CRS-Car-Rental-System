@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import com.carrentalsystem.main.service.CustomerCarService;
 import com.carrentalsystem.main.service.CustomerService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class CustomerCarController {
 	@Autowired
 	private CustomerCarService customercarService;
@@ -39,7 +41,7 @@ public class CustomerCarController {
 	@Autowired
 	private CarService carService;
 	
-	
+	//localhost:9191/bookcar/8/112
 	@PostMapping("/bookcar/{cid}/{carid}")
 	public ResponseEntity<?> bookcar(@PathVariable("cid") int cid, @PathVariable("carid") int carid,
 			@RequestBody List<CustomerCarDto> custCarDtoList) {
@@ -50,7 +52,7 @@ public class CustomerCarController {
 //			var status=car.getStatus();
 				
 		//	if(car.getStatus() != "booked") {
-				
+				System.err.println("book car api");
 			List<CustomerCar> bookedCars = new ArrayList<>();
 			double totalPrice = 0;
 			for (CustomerCarDto custCarDto : custCarDtoList) {
@@ -67,13 +69,13 @@ public class CustomerCarController {
 						.setPrice(customercarService.price(carid, custCarDto.getFromDate(), custCarDto.getToDate()));
 				
 				totalPrice = totalPrice + (customercar.getPrice());
-			
+				System.err.println("after price");
 			
 				bookedCars.add(customercarService.insert(customercar));
 				// customercar.setStatus("booked");
 				
 				// car.setStatus("booked");
-				
+				System.err.println("insert(customercar)");
 			}
 
 			Map<String, Object> response = new HashMap<>();
