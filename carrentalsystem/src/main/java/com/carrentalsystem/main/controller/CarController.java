@@ -59,6 +59,7 @@ public class CarController {
     "fuelType":
     "seating":
     "insurance":
+    "vehicleNo":
 	}*/
 	
 	
@@ -96,6 +97,8 @@ public class CarController {
 				car.setSeating(carDto.getSeating());
 			if(carDto.getInsurance()!=null)
 				car.setInsurance(carDto.getInsurance());
+			if(carDto.getVehicleNo()!=null)
+				car.setVehicleNo(carDto.getVehicleNo());
 			if(carDto.getSource()!=null)
 				car.setSource(carDto.getSource());
 			car=carService.postCar(car);

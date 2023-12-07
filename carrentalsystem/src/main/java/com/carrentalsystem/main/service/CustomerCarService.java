@@ -30,24 +30,24 @@ public class CustomerCarService {
 
 	    double price=optional.get().getPrice();
 	    System.err.println("getting price in service:"+price);
-	    return price;
-//	    long noofdays=ChronoUnit.DAYS.between(fromDate, toDate);
-//	    System.err.println("noofdays:"+noofdays);
-//	    if (noofdays <= 1) {
-//	        return price;
-//	    } else if (noofdays ==2 ) {
-//	        return price * 1.2;
-//	    }
-//	    else if (noofdays >= 3 && noofdays <=4) {
-//	        return price * 1.4;
-//	    }else if (noofdays >= 5 && noofdays <=10) {
-//	        return price * 1.60;
-//	    }else if (noofdays >10) {
-//	        return price * 1.5;
-//	    }
+//	    return price;
+	    long noofdays=ChronoUnit.DAYS.between(fromDate, toDate);
+	    System.err.println("noofdays:"+noofdays);
+	    if (noofdays <= 1) {
+	        return price;
+	    } else if (noofdays ==2 ) {
+	        return price * 1.2;
+	    }
+	    else if (noofdays >= 3 && noofdays <=4) {
+	        return price * 1.4;
+	    }else if (noofdays >= 5 && noofdays <=10) {
+	        return price * 1.60;
+	    }else if (noofdays >10) {
+	        return price * 1.5;
+	    }
 	   
 	    // Default case, though it should never reach here if age is handled properly
-//	    throw new InvalidIdException("Invalid days");
+	    throw new InvalidIdException("Invalid days");
 	    
 	}
 

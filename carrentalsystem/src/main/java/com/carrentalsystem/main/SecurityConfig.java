@@ -27,19 +27,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		 http
+		 
+		 .cors()
+		 .and()
 		 .authorizeRequests()
 		 
+		 .antMatchers(HttpMethod.POST,"/customer/signup").permitAll()
 		 .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
 		 .antMatchers("/car/getall").permitAll()
 		 .antMatchers("/car/getcars/bysource/{source}").permitAll()
 		 .antMatchers("/car/get/availablecars/{source}").permitAll()
 		 .antMatchers("/bookcar/{cid}/{carid}").permitAll()
 		 .antMatchers("/customer/bookings/{cid}").permitAll()
+		 .antMatchers("/customer/getone/{id}").permitAll()
+		 .antMatchers("/customer/update/{cid}").permitAll()
+		 .antMatchers("/car/getone/{carid}").permitAll()
+		 
+		 .antMatchers(HttpMethod.POST,"/host/signup").permitAll()
 		 .anyRequest().authenticated()
 		 .and().httpBasic()
 		 .and()
-		 .csrf().disable()
-		 .cors().disable();
+		 .csrf().disable();
+		 
 		 //Next: Role Based Access
 	}
 	

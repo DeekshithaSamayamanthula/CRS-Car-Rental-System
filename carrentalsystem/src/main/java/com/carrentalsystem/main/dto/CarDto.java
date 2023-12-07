@@ -1,13 +1,12 @@
 package com.carrentalsystem.main.dto;
 
-import javax.persistence.Column;
-
 public class CarDto {
 	private String carModel;
 	private double price;
 	private String fuelType;
 	private int seating;
 	private String insurance;
+	private String vehicleNo;
 	private String source;
 	public String getSource() {
 		return source;
@@ -47,11 +46,19 @@ public class CarDto {
 	public void setSeating(int seating) {
 		this.seating = seating;
 	}
+	
 	public String getInsurance() {
 		return insurance;
 	}
 	public void setInsurance(String insurance) {
 		this.insurance = insurance;
 	}
+	public String getVehicleNo() {
+		return vehicleNo;
+	}
+	public void setVehicleNo(String vehicleNo) {
+		this.vehicleNo = vehicleNo;
+	}
+	
 	
 }

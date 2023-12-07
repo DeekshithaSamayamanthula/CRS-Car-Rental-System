@@ -21,6 +21,7 @@ public class Car {
 	private String fuelType;
 	private int seating;
 	private String insurance;
+	private String vehicleNo;
 	private String source;
 	
 // 	private String status;
@@ -58,6 +59,18 @@ public void setPrice(double price) {
 	this.price = price;
 }
 
+public String getInsurance() {
+	return insurance;
+}
+public void setInsurance(String insurance) {
+	this.insurance = insurance;
+}
+public String getVehicleNo() {
+	return vehicleNo;
+}
+public void setVehicleNo(String vehicleNo) {
+	this.vehicleNo = vehicleNo;
+}
 public String getFuelType() {
 	return fuelType;
 }
@@ -70,12 +83,7 @@ public int getSeating() {
 public void setSeating(int seating) {
 	this.seating = seating;
 }
-public String isInsurance() {
-	return insurance;
-}
-public void setInsurance(String insurance) {
-	this.insurance = insurance;
-}
+
 public Host getHost() {
 	return host;
 }
@@ -85,7 +93,9 @@ public void setHost(Host host) {
 @Override
 public String toString() {
 	return "Car [carId=" + carId + ", carModel=" + carModel + ", price=" + price + ", fuelType=" + fuelType
-			+ ", seating=" + seating + ", insurance=" + insurance + ", source=" + source + ", host=" + host + "]";
+			+ ", seating=" + seating + ", insurance=" + insurance + ", vehicleNo=" + vehicleNo + ", source=" + source
+			+ ", host=" + host + "]";
 }
+
 
 }
