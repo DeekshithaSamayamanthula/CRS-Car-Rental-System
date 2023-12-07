@@ -56,7 +56,8 @@ public class HostController {
 		user.setRole(Role.Host);
 		user = userService.insert(user);
 		host.setUser(user);
-		host = hostService.postHost(host);		
+		host = hostService.postHost(host);
+		System.err.println("host signup api");
 		return host;
 }
 	/*{

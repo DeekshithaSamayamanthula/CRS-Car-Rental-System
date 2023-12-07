@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 .antMatchers("/car/getone/{carid}").permitAll()
 		 
 		 .antMatchers(HttpMethod.POST,"/host/signup").permitAll()
+		 .antMatchers("/car/post/{hid}").permitAll()
 		 .anyRequest().authenticated()
 		 .and().httpBasic()
 		 .and()

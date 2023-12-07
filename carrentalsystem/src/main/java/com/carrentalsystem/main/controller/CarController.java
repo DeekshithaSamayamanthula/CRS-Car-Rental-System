@@ -44,6 +44,7 @@ public class CarController {
 			Host host = hostService.getById(hid);
 			car.setHost(host);
 			car=carService.insert(car);
+			System.err.println("posted car api");
 			return ResponseEntity.ok().body(car);
 			
 		}	catch (InvalidIdException e) {
