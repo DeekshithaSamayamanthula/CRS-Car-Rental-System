@@ -27,6 +27,7 @@ import com.carrentalsystem.main.model.CustomerCar;
 import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.service.CarService;
 import com.carrentalsystem.main.service.HostService;
+import com.sun.istack.logging.Logger;
 
 @RestController
 @RequestMapping("/car")
@@ -138,7 +139,7 @@ public class CarController {
 	@GetMapping("/get/availablecars/{source}")
     public ResponseEntity<List<Car>> getAvailableCars(@PathVariable String source) {
         List<Car> availableCars = carService.getAvailableCars(source);
-        System.err.println("available api");
+       
         return ResponseEntity.ok(availableCars);
     }
 }
