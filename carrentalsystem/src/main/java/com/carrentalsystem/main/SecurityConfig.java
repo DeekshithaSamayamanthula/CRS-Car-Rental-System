@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 .antMatchers("/customer/getone/{id}").permitAll()
 		 .antMatchers("/customer/update/{cid}").permitAll()
 		 .antMatchers("/car/getone/{carid}").permitAll()
-		 
+		 .antMatchers("/car/getall/{hid}").permitAll()
 		 .antMatchers(HttpMethod.POST,"/host/signup").permitAll()
 		 .antMatchers("/car/post/{hid}").permitAll()
 		 .anyRequest().authenticated()
