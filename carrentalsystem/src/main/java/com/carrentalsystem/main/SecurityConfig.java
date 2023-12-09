@@ -54,6 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 .antMatchers("/host/customers/{hid}/{carid}").permitAll()
 		 .antMatchers("/host/getone/{hid}").permitAll()
 		 .antMatchers("/host/update/{hid}").permitAll()
+		 .antMatchers(HttpMethod.POST,"/admin/signup").permitAll()
+		 .antMatchers("/admin/getall/hosts").permitAll()
+		 .antMatchers("/admin/getall/customers").permitAll()
+		 .antMatchers("/customer/bookings/{cid}").permitAll()
+		 
+		 .antMatchers("/admin/customers/{carid}").permitAll()
+		 .antMatchers("/admin/getall/carsbyhost/{hid}").permitAll()
 		 .anyRequest().authenticated()
 		 .and().httpBasic()
 		 .and()
