@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,19 +48,29 @@ public class HostController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/signup")//host signup
-	public Host postAdmin(@RequestBody Host host) { 
-    User user = host.getUser();
-		String password = user.getPassword();
-		String encodedpassword = passwordEncoder.encode(password);
-		user.setPassword(encodedpassword);
-		user.setRole(Role.Host);
-		user = userService.insert(user);
-		host.setUser(user);
-		host = hostService.postHost(host);
-		System.err.println("host signup api");
-		return host;
-}
+	@PostMapping("/signup")
+	public ResponseEntity<Object> postAdmin(@RequestBody Host host) {
+	    // Check if the email already exists in the Host table
+	    String email = host.getHostEmail();
+	    if (hostService.existsByEmail(email)) {
+	        // Email already exists, return a message indicating the conflict
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists.");
+	    }
+
+	    // If the email doesn't exist, proceed with the signup process
+	    User user = host.getUser();
+	    String password = user.getPassword();
+	    String encodedpassword = passwordEncoder.encode(password);
+	    user.setPassword(encodedpassword);
+	    user.setRole(Role.Host);
+	    user = userService.insert(user);
+	    host.setUser(user);
+	    host = hostService.postHost(host);
+
+	    // Return a success message along with the created host
+	    return ResponseEntity.status(HttpStatus.CREATED).body(host);
+	}
+
 	/*{
     "hostEmail":"",
     "hostName":"",

@@ -47,5 +47,8 @@ private HostRepository hostRepository;
 	public List<Host> getAll(Pageable pageable) {
 		return hostRepository.findAll(pageable).getContent();
 	}
+	public boolean existsByEmail(String email) {
+		 return hostRepository.existsByHostEmail(email);
+	}
 
 }

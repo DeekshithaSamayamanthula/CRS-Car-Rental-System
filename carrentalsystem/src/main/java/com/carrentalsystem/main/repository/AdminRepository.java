@@ -6,4 +6,6 @@ import com.carrentalsystem.main.model.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer>{
 
+	boolean existsByEmail(String email);
+
 }

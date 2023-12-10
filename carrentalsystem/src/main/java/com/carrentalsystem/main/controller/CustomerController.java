@@ -2,9 +2,11 @@ package com.carrentalsystem.main.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,20 +40,32 @@ public class CustomerController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
-	private UserService userService; 
+	private UserService userService;
+	@Autowired
+	private Logger logger;
 	//localhost:9191/customer/signup
-	@PostMapping("/signup") //customer signup
-	public Customer postAdmin(@RequestBody Customer customer) { 
-    User user = customer.getUser();
-		String password = user.getPassword();
-		String encodedpassword = passwordEncoder.encode(password);
-		user.setPassword(encodedpassword);
-		user.setRole(Role.Customer);
-		user = userService.insert(user);
-		customer.setUser(user);
-		customer = customerService.postCustomer(customer);		
-		return customer;
-}
+	@PostMapping("/signup")
+	public ResponseEntity<Object> postAdmin(@RequestBody Customer customer) {
+	    // Check if the email already exists in the Customer table
+	    String email = customer.getEmail();
+	    if (customerService.existsByEmail(email)) {
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists.");
+	    }
+
+	    // If the email doesn't exist, proceed with the signup process
+	    User user = customer.getUser();
+	    String password = user.getPassword();
+	    String encodedpassword = passwordEncoder.encode(password);
+	    user.setPassword(encodedpassword);
+	    user.setRole(Role.Customer);
+	    user = userService.insert(user);
+	    customer.setUser(user);
+	    customer = customerService.postCustomer(customer);
+
+	    // Return a success message along with the created customer
+	    return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+	}
+
 /*{
     "name":"",
     "email":"",

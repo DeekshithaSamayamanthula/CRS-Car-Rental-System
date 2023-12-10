@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,20 +54,29 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/signup") //admin signup 
-	public Admin postAdmin(@RequestBody Admin admin) { // ur method is mapped to a URL : api
-		
-		User user = admin.getUser();
-		String password = user.getPassword();
-		String encodedpassword = passwordEncoder.encode(password);
-		user.setPassword(encodedpassword);
-		user.setRole(Role.Admin);
-		user = userService.insert(user);
-		admin.setUser(user);
-		admin = adminService.postAdmin(admin);
-		
-		return admin;
+	@PostMapping("/signup")
+	public ResponseEntity<Object> postAdmin(@RequestBody Admin admin) {
+	    // Check if the email already exists in the Admin table
+	    String email = admin.getEmail();
+	    if (adminService.existsByEmail(email)) {
+	        // Email already exists, return a message indicating the conflict
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists.");
+	    }
+
+	    // If the email doesn't exist, proceed with the signup process
+	    User user = admin.getUser();
+	    String password = user.getPassword();
+	    String encodedpassword = passwordEncoder.encode(password);
+	    user.setPassword(encodedpassword);
+	    user.setRole(Role.Admin);
+	    user = userService.insert(user);
+	    admin.setUser(user);
+	    admin = adminService.postAdmin(admin);
+
+	    // Return a success message along with the created admin
+	    return ResponseEntity.status(HttpStatus.CREATED).body(admin);
 	}
+
 	/* {
     "adminName":
     "email":

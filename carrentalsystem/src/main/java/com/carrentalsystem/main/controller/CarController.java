@@ -27,8 +27,8 @@ import com.carrentalsystem.main.model.CustomerCar;
 import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.service.CarService;
 import com.carrentalsystem.main.service.HostService;
-import com.sun.istack.logging.Logger;
 
+import org.slf4j.Logger;
 @RestController
 @RequestMapping("/car")
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -37,7 +37,8 @@ public class CarController {
 	private HostService hostService;
 	@Autowired
 	private CarService carService;
-	
+	@Autowired
+	private Logger logger;
 	//localhost:9191/car/post/2
 	@PostMapping("/post/{hid}")
 	public ResponseEntity<?> postCar(@RequestBody Car car,@PathVariable("hid") int hid) {
@@ -80,7 +81,7 @@ public class CarController {
 	public List<Car> getAllCar(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(value = "size", required = false, defaultValue = "10000000") Integer size) {
 		Pageable pageable = PageRequest.of(page, size); // null null
-		
+	
 		return carService.getAll(pageable);
 	}
 	//localhost:9191/car/update/5/6
@@ -133,6 +134,7 @@ public class CarController {
     public ResponseEntity<List<Car>> getCarsBySource(@PathVariable String source) {
         List<Car> cars = carService.getCarsBySource(source);
         System.err.println("source api");
+    	logger.info("msg");
         return ResponseEntity.ok(cars);
     }
 	//localhost:9191/car/get/availablecars/hyderabad

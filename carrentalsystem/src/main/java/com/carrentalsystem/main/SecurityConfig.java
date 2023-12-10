@@ -15,7 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.carrentalsystem.main.service.UserService;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -61,6 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 
 		 .antMatchers("/admin/customers/{carid}").permitAll()
 		 .antMatchers("/admin/getall/carsbyhost/{hid}").permitAll()
+		 
+		 
+		 
 		 .anyRequest().authenticated()
 		 .and().httpBasic()
 		 .and()
@@ -81,9 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		dao.setUserDetailsService(userService);  //UserDetailsService : UserService
 		return dao; 
 	}
-@Bean
-public Logger getLogger() {
-	return LoggerFactory.getLogger("Logger records");
-}
+	@Bean
+	public Logger getLogger() {
+		return LoggerFactory.getLogger("Log Records");
+	}
 
 }

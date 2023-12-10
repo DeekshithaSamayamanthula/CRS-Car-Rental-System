@@ -31,5 +31,8 @@ public class AdminService {
 	public void deleteAdmin(Admin admin) {
 		adminRepository.delete(admin);
 	}
+	public boolean existsByEmail(String email) {
+		 return adminRepository.existsByEmail(email);
+	}
 
 }
