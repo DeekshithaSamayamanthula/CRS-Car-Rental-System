@@ -74,7 +74,7 @@ public class AdminController {
 	    admin = adminService.postAdmin(admin);
 
 	    // Return a success message along with the created admin
-	    return ResponseEntity.status(HttpStatus.CREATED).body(admin);
+	    return ResponseEntity.status(HttpStatus.OK).body(admin);
 	}
 
 	/* {

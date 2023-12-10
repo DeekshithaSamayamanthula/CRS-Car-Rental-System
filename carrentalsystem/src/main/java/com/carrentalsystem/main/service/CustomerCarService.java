@@ -36,14 +36,14 @@ public class CustomerCarService {
 	    if (noofdays <= 1) {
 	        return price;
 	    } else if (noofdays ==2 ) {
-	        return price * 1.2;
+	        return price * 1.3;
 	    }
 	    else if (noofdays >= 3 && noofdays <=4) {
-	        return price * 1.4;
-	    }else if (noofdays >= 5 && noofdays <=10) {
-	        return price * 1.60;
-	    }else if (noofdays >10) {
 	        return price * 1.5;
+	    }else if (noofdays >= 5 && noofdays <=10) {
+	        return price * 1.7;
+	    }else if (noofdays >10) {
+	        return price * 1.6;
 	    }
 	   
 	    // Default case, though it should never reach here if age is handled properly

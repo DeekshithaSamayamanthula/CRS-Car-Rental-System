@@ -63,7 +63,7 @@ public class CustomerController {
 	    customer = customerService.postCustomer(customer);
 
 	    // Return a success message along with the created customer
-	    return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+	    return ResponseEntity.status(HttpStatus.OK).body(customer);
 	}
 
 /*{

@@ -68,7 +68,7 @@ public class HostController {
 	    host = hostService.postHost(host);
 
 	    // Return a success message along with the created host
-	    return ResponseEntity.status(HttpStatus.CREATED).body(host);
+	    return ResponseEntity.status(HttpStatus.OK).body(host);
 	}
 
 	/*{

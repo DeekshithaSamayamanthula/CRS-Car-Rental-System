@@ -62,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 
 		 .antMatchers("/admin/customers/{carid}").permitAll()
 		 .antMatchers("/admin/getall/carsbyhost/{hid}").permitAll()
+		 .antMatchers("/admin/getone/{id}").permitAll()
+		 .antMatchers("/admin/update/{id}").permitAll()
 		 
 		 
 		 
