@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ import com.carrentalsystem.main.service.UserService;
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin(origins = {"http://localhost:3000"}) 
+@Configuration
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
@@ -60,7 +62,8 @@ public class CustomerController {
 	    user.setRole(Role.Customer);
 	    user = userService.insert(user);
 	    customer.setUser(user);
-	    customer = customerService.postCustomer(customer);
+	    logger.info("Customer signed up: {}",customer.getName());
+	  
 
 	    // Return a success message along with the created customer
 	    return ResponseEntity.status(HttpStatus.OK).body(customer);

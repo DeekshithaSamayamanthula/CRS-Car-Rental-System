@@ -134,7 +134,7 @@ public class CarController {
     public ResponseEntity<List<Car>> getCarsBySource(@PathVariable String source) {
         List<Car> cars = carService.getCarsBySource(source);
         System.err.println("source api");
-    	logger.info("msg");
+    	logger.info("car posted");
         return ResponseEntity.ok(cars);
     }
 	//localhost:9191/car/get/availablecars/hyderabad

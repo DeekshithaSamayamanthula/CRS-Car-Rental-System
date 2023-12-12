@@ -1,13 +1,57 @@
 package com.carrentalsystem.main;
 
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
-@SpringBootTest
-class CarrentalsystemApplicationTests {
+import com.carrentalsystem.main.exception.InvalidIdException;
+import com.carrentalsystem.main.model.Customer;
+import com.carrentalsystem.main.repository.CustomerRepository;
+import com.carrentalsystem.main.service.CustomerService;
 
+
+@ExtendWith(MockitoExtension.class)
+public class CarrentalsystemApplicationTests {
+	@Mock
+	private CustomerRepository customerRepository;
+	@InjectMocks
+	private CustomerService customerService;
 	@Test
-	void contextLoads() {
+	public void testPostCustomer() {
+		Customer customer = new Customer();
+		when(customerRepository.save(customer)).thenReturn(customer);
+		Customer result = customerService.postCustomer(customer);
+		assertNotNull(result);
+		assertEquals(customer, result);
 	}
-
+	@Test
+	public void testGetOneValidId() throws InvalidIdException {
+		int customerId = 1;
+		Customer customer = new Customer();
+		when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
+		Customer result = customerService.getOne(customerId);
+		assertNotNull(result);
+		assertEquals(customer, result);
+	}
+	@Test
+	public void testGetOneInvalidId() {
+		int customerId = 1;
+		when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
+		assertThrows(InvalidIdException.class, () -> customerService.getOne(customerId));
+	}
+	
+	
 }
