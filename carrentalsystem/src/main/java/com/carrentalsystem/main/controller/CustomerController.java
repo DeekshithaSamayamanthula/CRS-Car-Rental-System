@@ -62,7 +62,14 @@ public class CustomerController {
 	    user.setRole(Role.Customer);
 	    user = userService.insert(user);
 	    customer.setUser(user);
+	    customerService.postCustomer(customer);
 	    logger.info("Customer signed up: {}",customer.getName());
+	    
+	    int uid=customer.getId();
+		try {
+			userService.sendEmailOnRegistration(uid);
+			} catch (InvalidIdException e) { e.printStackTrace();
+			}
 	  
 
 	    // Return a success message along with the created customer
@@ -115,6 +122,3 @@ public class CustomerController {
 		}
 	}
 	}
-		
-		
-	

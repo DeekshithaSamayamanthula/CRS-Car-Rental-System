@@ -30,6 +30,7 @@ import com.carrentalsystem.main.model.Host;
 import com.carrentalsystem.main.service.CarService;
 import com.carrentalsystem.main.service.CustomerCarService;
 import com.carrentalsystem.main.service.CustomerService;
+import com.carrentalsystem.main.service.UserService;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -40,6 +41,9 @@ public class CustomerCarController {
 	private CustomerService customerService;
 	@Autowired
 	private CarService carService;
+	
+	@Autowired
+	private UserService userService;
 	
 	//localhost:9191/bookcar/8/112
 	@PostMapping("/bookcar/{cid}/{carid}")
@@ -70,10 +74,10 @@ public class CustomerCarController {
 				
 				totalPrice = totalPrice + (customercar.getPrice());
 				System.err.println("after price");
-			
+		
 				bookedCars.add(customercarService.insert(customercar));
 				// customercar.setStatus("booked");
-				
+				userService.sendEmailOnBooking(cid);
 				// car.setStatus("booked");
 				System.err.println("insert(customercar)");
 			}
